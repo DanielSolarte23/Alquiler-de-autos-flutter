@@ -1,3 +1,4 @@
+import 'package:alquiler_autos/views/detallesVehiculo.dart';
 import 'package:flutter/material.dart';
 
 class Menuprincipal extends StatefulWidget {
@@ -40,7 +41,10 @@ class _MenuprincipalState extends State<Menuprincipal> {
                 fontSize: 20,
               ),
             ),
-            const Text("correo@ejemplo.com", style: TextStyle(color: Colors.white),),
+            const Text(
+              "correo@ejemplo.com",
+              style: TextStyle(color: Colors.white),
+            ),
             const SizedBox(
               height: 30,
             ),
@@ -128,13 +132,24 @@ class _MenuprincipalState extends State<Menuprincipal> {
                   ),
                   SizedBox(
                       height: 5), // Espacio entre el título y la descripción
-                  Text(
-                    "Año 2022 - \$99.99/día", // Corrección en el uso del signo de dólar
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14, // Estilo para la descripción
-                    ),
-                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Año 2022 -",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14, // Estilo para la descripción
+                        ),
+                      ),
+                      Text(
+                        " \$99.99/día",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               leading: Image.network(
@@ -148,7 +163,8 @@ class _MenuprincipalState extends State<Menuprincipal> {
                 color: Colors.white, // Color del ícono
               ),
               onTap: () {
-                // Aquí puedes agregar la acción que debe realizarse al hacer tap
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Detallesvehiculo()));
               },
             ),
           ),
@@ -164,13 +180,24 @@ class _MenuprincipalState extends State<Menuprincipal> {
                   ),
                   SizedBox(
                       height: 5), // Espacio entre el título y la descripción
-                  Text(
-                    "Año 2022 - \$99.99/día", // Corrección en el uso del signo de dólar
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14, // Estilo para la descripción
-                    ),
-                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Año 2022 -",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14, // Estilo para la descripción
+                        ),
+                      ),
+                      Text(
+                        " \$99.99/día",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               leading: Image.network(
@@ -184,7 +211,8 @@ class _MenuprincipalState extends State<Menuprincipal> {
                 color: Colors.white, // Color del ícono
               ),
               onTap: () {
-                // Aquí puedes agregar la acción que debe realizarse al hacer tap
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Detallesvehiculo()));
               },
             ),
           ),
@@ -200,13 +228,24 @@ class _MenuprincipalState extends State<Menuprincipal> {
                   ),
                   SizedBox(
                       height: 5), // Espacio entre el título y la descripción
-                  Text(
-                    "Año 2022 - \$99.99/día", // Corrección en el uso del signo de dólar
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14, // Estilo para la descripción
-                    ),
-                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Año 2022 -",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14, // Estilo para la descripción
+                        ),
+                      ),
+                      Text(
+                        " \$99.99/día",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               leading: Image.network(
@@ -220,7 +259,8 @@ class _MenuprincipalState extends State<Menuprincipal> {
                 color: Colors.white, // Color del ícono
               ),
               onTap: () {
-                // Aquí puedes agregar la acción que debe realizarse al hacer tap
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Detallesvehiculo()));
               },
             ),
           ),
@@ -236,13 +276,24 @@ class _MenuprincipalState extends State<Menuprincipal> {
                   ),
                   SizedBox(
                       height: 5), // Espacio entre el título y la descripción
-                  Text(
-                    "Año 2022 - \$99.99/día", // Corrección en el uso del signo de dólar
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14, // Estilo para la descripción
-                    ),
-                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Año 2022 -",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14, // Estilo para la descripción
+                        ),
+                      ),
+                      Text(
+                        " \$99.99/día",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               leading: Image.network(
@@ -256,7 +307,56 @@ class _MenuprincipalState extends State<Menuprincipal> {
                 color: Colors.white, // Color del ícono
               ),
               onTap: () {
-                // Aquí puedes agregar la acción que debe realizarse al hacer tap
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Detallesvehiculo()));
+              },
+            ),
+          ),
+          Card(
+            color: Colors.black,
+            child: ListTile(
+              title: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Toyota Corolla",
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                  SizedBox(
+                      height: 5), // Espacio entre el título y la descripción
+                  Row(
+                    children: [
+                      Text(
+                        "Año 2022 -",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14, // Estilo para la descripción
+                        ),
+                      ),
+                      Text(
+                        " \$99.99/día",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              leading: Image.network(
+                "https://images.vexels.com/media/users/3/145078/isolated/preview/d5026c659b3202b62a4213be947c2ff6-ilustracion-de-suv-rojo.png",
+                width: 50, // Tamaño de la imagen
+                height: 50,
+                fit: BoxFit.cover, // Ajusta la imagen a un cuadrado
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white, // Color del ícono
+              ),
+              onTap: () {
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Detallesvehiculo()));
               },
             ),
           ),
