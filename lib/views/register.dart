@@ -1,4 +1,6 @@
 import 'package:alquiler_autos/views/Login.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:alquiler_autos/views/menuPrincipal.dart';
 
@@ -8,8 +10,35 @@ class register extends StatefulWidget {
 }
 
 class _registerState extends State<register> {
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  Future<void> RegisterUser() async {
+    final response = await http.post(
+        Uri.parse(
+            'https://alquiler-autos-backen-12-10.onrender.com/api/register'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'username': _usernameController.text,
+          'email': _emailController.text,
+          'password': _passwordController.text
+        }));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final token = data['token'];
+      print("Registro exitosos, token: $token");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Menuprincipal()),
+      );
+    } else {
+      print('Error al iniciar sesión: ${response.statusCode}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,8 +67,7 @@ class _registerState extends State<register> {
                   const Text("Crea una nueva cuenta"),
                   const SizedBox(height: 24.0),
                   TextField(
-                    controller: _passwordController,
-                    obscureText: true, // Para ocultar el texto
+                    controller: _usernameController,
                     style: const TextStyle(
                       color: Colors.black, // Color del texto
                       fontSize: 18, // Tamaño de la fuente
@@ -81,8 +109,7 @@ class _registerState extends State<register> {
                   ),
                   const SizedBox(height: 16.0),
                   TextField(
-                    controller: _passwordController,
-                    obscureText: true, // Para ocultar el texto
+                    controller: _emailController,
                     style: const TextStyle(
                       color: Colors.black, // Color del texto
                       fontSize: 18, // Tamaño de la fuente
@@ -165,59 +192,10 @@ class _registerState extends State<register> {
                       fillColor: Colors.grey[200], // Color de fondo del campo
                     ),
                   ),
-                  const SizedBox(height: 16.0),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: true, // Para ocultar el texto
-                    style: const TextStyle(
-                      color: Colors.black, // Color del texto
-                      fontSize: 18, // Tamaño de la fuente
-                    ),
-                    decoration: InputDecoration(
-                      labelText: 'Confirma tu contraseña', // Etiqueta del campo
-                      labelStyle: const TextStyle(
-                        color: Colors.red, // Color de la etiqueta
-                        fontWeight: FontWeight.bold, // Estilo de la etiqueta
-                      ),
-                      hintText:
-                          'Ingresa nuevamente tu contraseña', // Texto de sugerencia
-                      hintStyle: const TextStyle(
-                        color: Colors.grey, // Color del texto de sugerencia
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(12.0), // Bordes redondeados
-                        borderSide: const BorderSide(
-                            color: Colors.red,
-                            width: 2.0), // Color y grosor del borde
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide: const BorderSide(
-                            color: Colors.red,
-                            width: 2.5), // Borde cuando el campo está enfocado
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                        borderSide: const BorderSide(
-                            color: Colors.grey,
-                            width:
-                                2.0), // Borde cuando el campo está habilitado pero no enfocado
-                      ),
-                      filled:
-                          true, // Si quieres que el fondo del campo tenga color
-                      fillColor: Colors.grey[200], // Color de fondo del campo
-                    ),
-                  ),
                   const SizedBox(height: 24.0),
                   ElevatedButton(
                       onPressed: () {
-                        // print("email: ${_emailController.text} ");
-                        // print("password: ${_passwordController.text} ");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Menuprincipal()));
+                        RegisterUser();
                       },
                       style:
                           ElevatedButton.styleFrom(backgroundColor: Colors.red),

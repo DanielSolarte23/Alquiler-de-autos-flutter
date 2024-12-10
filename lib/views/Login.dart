@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:alquiler_autos/views/menuPrincipal.dart';
 import 'package:alquiler_autos/views/register.dart';
 
@@ -10,6 +12,32 @@ class login extends StatefulWidget {
 class _loginState extends State<login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  Future<void> loginUser() async {
+    final response = await http.post(
+      Uri.parse(
+          'https://alquiler-autos-backen-12-10.onrender.com/api/login'), // Reemplaza con la URL de tu API
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'email': _emailController.text,
+        'password': _passwordController.text,
+      }),
+    );
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final token = data['token'];
+      print('Login exitoso, token: $token');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Menuprincipal()),
+      );
+    } else {
+      print('Error al iniciar sesión: ${response.statusCode}');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,99 +63,82 @@ class _loginState extends State<login> {
                 const Text("Inicia sesión para continuar"),
                 const SizedBox(height: 24.0),
                 TextField(
-                  controller: _passwordController,
-                  obscureText: true, // Para ocultar el texto
+                  controller: _emailController, // Cambié _emailController aquí
+                  obscureText: false, // El correo no debe estar oculto
                   style: const TextStyle(
-                    color: Colors.black, // Color del texto
-                    fontSize: 18, // Tamaño de la fuente
+                    color: Colors.black,
+                    fontSize: 18,
                   ),
                   decoration: InputDecoration(
                     labelText: 'Correo', // Etiqueta del campo
                     labelStyle: const TextStyle(
-                      color: Colors.red, // Color de la etiqueta
-                      fontWeight: FontWeight.bold, // Estilo de la etiqueta
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
                     ),
-                    hintText: 'Ingresa tu correo', // Texto de sugerencia
+                    hintText: 'Ingresa tu correo',
                     hintStyle: const TextStyle(
-                      color: Colors.grey, // Color del texto de sugerencia
+                      color: Colors.grey,
                     ),
                     border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(12.0), // Bordes redondeados
-                      borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 2.0), // Color y grosor del borde
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 2.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 2.5), // Borde cuando el campo está enfocado
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 2.5),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width:
-                              2.0), // Borde cuando el campo está habilitado pero no enfocado
+                      borderSide:
+                          const BorderSide(color: Colors.grey, width: 2.0),
                     ),
-                    filled:
-                        true, // Si quieres que el fondo del campo tenga color
-                    fillColor: Colors.grey[200], // Color de fondo del campo
+                    filled: true,
+                    fillColor: Colors.grey[200],
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 TextField(
-                  controller: _passwordController,
-                  obscureText: true, // Para ocultar el texto
+                  controller: _passwordController, // Aquí no cambia nada
+                  obscureText: true, // La contraseña debe estar oculta
                   style: const TextStyle(
-                    color: Colors.black, // Color del texto
-                    fontSize: 18, // Tamaño de la fuente
+                    color: Colors.black,
+                    fontSize: 18,
                   ),
                   decoration: InputDecoration(
                     labelText: 'Contraseña', // Etiqueta del campo
                     labelStyle: const TextStyle(
-                      color: Colors.red, // Color de la etiqueta
-                      fontWeight: FontWeight.bold, // Estilo de la etiqueta
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
                     ),
-                    hintText: 'Ingresa tu contraseña', // Texto de sugerencia
+                    hintText: 'Ingresa tu contraseña',
                     hintStyle: const TextStyle(
-                      color: Colors.grey, // Color del texto de sugerencia
+                      color: Colors.grey,
                     ),
                     border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(12.0), // Bordes redondeados
-                      borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 2.0), // Color y grosor del borde
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 2.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(
-                          color: Colors.red,
-                          width: 2.5), // Borde cuando el campo está enfocado
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 2.5),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
-                      borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width:
-                              2.0), // Borde cuando el campo está habilitado pero no enfocado
+                      borderSide:
+                          const BorderSide(color: Colors.grey, width: 2.0),
                     ),
-                    filled:
-                        true, // Si quieres que el fondo del campo tenga color
-                    fillColor: Colors.grey[200], // Color de fondo del campo
+                    filled: true,
+                    fillColor: Colors.grey[200],
                   ),
                 ),
                 const SizedBox(height: 24.0),
                 ElevatedButton(
                     onPressed: () {
-                      // print("email: ${_emailController.text} ");
-                      // print("password: ${_passwordController.text} ");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Menuprincipal()));
+                      loginUser();
                     },
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.red),
